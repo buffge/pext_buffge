@@ -7,7 +7,7 @@ using namespace php;
 //声明函数
 PHPX_FUNCTION(buffge_test);
 PHPX_FUNCTION(buffge_call_func);
-Variant* buff_call_func(Variant funcName, Args args);
+void buff_call_func(Variant funcName, Args args);
 
 PHPX_METHOD(Buffge, __construct) {
     _this.set("tips", "此扩展为buffge开发,有任何问题请联系 admin@buffge.com");
@@ -48,8 +48,31 @@ PHPX_EXTENSION() {
         buffge->addConstant("VERSION", EXT_VERSION);
 
         Class *buffgeConstantCommon = new Class("buffge\\constant\\Common");
-        buffgeConstantCommon->addConstant("VERSION", EXT_VERSION);
         buffgeConstantCommon->addConstant("EXT_FLAG", true);
+        buffgeConstantCommon->addConstant("VERSION", EXT_VERSION);
+        buffgeConstantCommon->addConstant("SUCCESS", 0x0);
+        buffgeConstantCommon->addConstant("DEFAULT", -1);
+        buffgeConstantCommon->addConstant("DEFAULT_ERROR", -1);
+        buffgeConstantCommon->addConstant("UNDEFINED", -1);
+        buffgeConstantCommon->addConstant("NEED_COUNT", true);
+        buffgeConstantCommon->addConstant("NOT_NEED_COUNT", false);
+        buffgeConstantCommon->addConstant("SHOW_DEL", true);
+        buffgeConstantCommon->addConstant("NOT_LIMIT", -1);
+        buffgeConstantCommon->addConstant("FLAG", 0x1);
+        buffgeConstantCommon->addConstant("EMPTY_STR", "");
+        buffgeConstantCommon->addConstant("JSON_ERROR", 0xe1);
+        buffgeConstantCommon->addConstant("DB_ERROR", 0x2);
+        buffgeConstantCommon->addConstant("TP_DB_ERROR", 0x3);
+        buffgeConstantCommon->addConstant("NOT_ALLOW_VALUE", 0x4);
+        buffgeConstantCommon->addConstant("HIGH_FREQUENCY", 0x5);
+        buffgeConstantCommon->addConstant("VALID_ERROR", 0x6);
+        buffgeConstantCommon->addConstant("ERROR_PARAM", 0x7);
+        buffgeConstantCommon->addConstant("INVAILD_PARAM", 0x8);
+        buffgeConstantCommon->addConstant("MISSING_ARGUMENTS", 0x9);
+        buffgeConstantCommon->addConstant("ERROR_METHOD", 0xa);
+        buffgeConstantCommon->addConstant("SERVER_ERROR", 0xb);
+        buffgeConstantCommon->addConstant("NO_CHANGE", 0x1);
+
         //注册类
         ext->registerClass(buffge);
         ext->registerClass(buffgeConstantCommon);
@@ -91,12 +114,11 @@ PHPX_FUNCTION(buffge_call_func) {
     buff_call_func(args[0], myArgs);
 }
 
-Variant* buff_call_func(Variant funcName, Args args) {
+void buff_call_func(Variant funcName, Args oriArgs) {
     Args myArgs;
-    for (int i = 0; i < args.count() && i < 10; i++) {
-        myArgs.append(args[i]);
+    for (int i = 0; i < oriArgs.count() && i < 10; i++) {
+        //        var_dump(oriArgs[i]);
+        myArgs.append(oriArgs[i]);
     }
-    Variant* _retval = new Variant;
     call(funcName, myArgs);
-    return _retval;
 }

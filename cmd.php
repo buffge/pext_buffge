@@ -8,7 +8,7 @@
 
 #输出buffge ext is installed!\n
 buffge_test();
-#调用 var_dump([1,2]);
+#调用 var_var_dump([1,2]);
 buffge_call_func("var_dump", [1, 2]);
 $b = new Buffge;
 var_dump($b);
@@ -24,4 +24,16 @@ echo Buffge::VERSION . "\n";
 //公有方法
 $b->commonMethod();
 Buffge::staticMethod();
+
+buffge_test();
+$buffge = new Buffge;
+var_dump($buffge);
+$buffge->commonMethod();
+Buffge::staticMethod();
+echo "\$buffge->commonMethod() " . $buffge->commonMethod() . "\n";
+echo "Buffge::staticMethod(): " . Buffge::staticMethod() . "\n";
+echo "Buffge::VERSION: " . Buffge::VERSION . "\n";
+////
+
+buffge_call_func('var_dump', ['a' => 123, 'shjh带回家看' => '闪电发货见客户']);
 
